@@ -21,7 +21,8 @@ dependencies {
     implementation("net.dv8tion:JDA:4.2.0_232")
 
     //Logging
-    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("io.sentry:sentry-logback:1.1.0")
 
     //RestApi
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
