@@ -17,6 +17,17 @@ repositories {
 }
 
 dependencies {
+    //JDA
+    implementation("net.dv8tion:JDA:4.2.0_232")
+
+    //Logging
+    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
+
+    //RestApi
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("com.google.code.gson:gson:2.8.6")
+
     // Use JUnit test framework.
     testImplementation("junit:junit:4.13")
 
