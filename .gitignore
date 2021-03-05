@@ -199,3 +199,5 @@ gradle-app.setting
 
 .env
 # End of https://www.toptal.com/developers/gitignore/requestBuilder/java,gradle,intellij,windows,macos
+# Ignore Gradle build output directory
+build
