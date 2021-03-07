@@ -10,7 +10,8 @@ public enum RequestRoute {
     PLAYER_INDEX("player/", getTypeAsList(PlayerImpl.class), "player", RequestType.GET),
     PLAYER_SHOW("player/", PlayerImpl.class, "player", RequestType.GET),
     PLAYER_CREATE("player/", Void.class, "player", RequestType.POST),
-    PLAYER_DELETE("player/", Void.class, "player", RequestType.DELETE);
+    PLAYER_DELETE("player/", Void.class, "player", RequestType.DELETE),
+    PLAYER_UPDATE("player/", PlayerImpl.class, "player", RequestType.POST);
 
     private final String route;
     private final Type type;
