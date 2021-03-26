@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 public class RequestFactory {
@@ -32,6 +33,11 @@ public class RequestFactory {
                 gson,
                 route
         );
+    }
+
+    public <T> RequestBody mapToJsonBody(T model) {
+        var bodyString = gson.toJson(model);
+        return RequestBody.create(bodyString.getBytes(StandardCharsets.UTF_8));
     }
 
     private OkHttpClient createHttpClient() {
