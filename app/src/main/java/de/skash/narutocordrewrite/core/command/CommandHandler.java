@@ -44,7 +44,10 @@ public class CommandHandler {
         playerRepository.retrievePlayerById(message.getAuthor().getIdLong()).executeAsync(success -> {
                     command.execute(new CommandEvent(message, server, success));
                 },
-                error -> LOG.error("handleCommand :: error", error));
+                error -> {
+                    LOG.error("handleCommand :: error", error);
+                    command.execute(new CommandEvent(message, server, null));
+                });
     }
 
     private Command parseCommand(Message message, Server server) {
