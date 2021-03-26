@@ -8,6 +8,9 @@ import de.skash.narutocordrewrite.core.cache.CommandCache;
 import de.skash.narutocordrewrite.core.cache.PlayerCache;
 import de.skash.narutocordrewrite.core.cache.ServerCache;
 import de.skash.narutocordrewrite.core.command.CommandHandler;
+import de.skash.narutocordrewrite.core.listener.MessageListener;
+import de.skash.narutocordrewrite.core.model.PlayerImpl;
+import de.skash.narutocordrewrite.core.model.ServerImpl;
 import de.skash.narutocordrewrite.core.repository.ApiPlayerRepository;
 import de.skash.narutocordrewrite.core.repository.ApiServerRepository;
 import de.skash.narutocordrewrite.core.repository.IPlayerRepository;
@@ -15,6 +18,7 @@ import de.skash.narutocordrewrite.core.repository.IServerRepository;
 import net.dv8tion.jda.api.GatewayEncoding;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -49,6 +53,7 @@ public class Bot {
                             CacheFlag.ROLE_TAGS
                     )
                     .setMemberCachePolicy(MemberCachePolicy.NONE)
+                    .addEventListeners(new MessageListener(commandHandler, serverRepository))
                     .setChunkingFilter(ChunkingFilter.NONE)
                     .setStatus(OnlineStatus.DO_NOT_DISTURB)
                     .setGatewayEncoding(GatewayEncoding.ETF)
