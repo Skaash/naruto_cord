@@ -4,15 +4,20 @@ import de.skash.narutocordrewrite.core.api.ApiRequest;
 import de.skash.narutocordrewrite.core.api.RequestFactory;
 import de.skash.narutocordrewrite.core.api.model.Server;
 import de.skash.narutocordrewrite.core.api.util.RequestRoute;
+import de.skash.narutocordrewrite.core.cache.ServerCache;
 
 import java.util.List;
 
 public class ApiServerRepository implements IServerRepository {
     private final RequestFactory requestFactory;
-    //TODO("Server Cache")
+    private final ServerCache serverCache;
 
-    public ApiServerRepository(RequestFactory requestFactory) {
+    public ApiServerRepository(
+            RequestFactory requestFactory,
+            ServerCache serverCache
+    ) {
         this.requestFactory = requestFactory;
+        this.serverCache = serverCache;
     }
 
     @Override
@@ -22,8 +27,7 @@ public class ApiServerRepository implements IServerRepository {
 
     @Override
     public Server getServerById(long id) {
-        //TODO("Pull from Cache")
-        return null;
+        return serverCache.getElementByKey(id);
     }
 
     @Override
@@ -33,8 +37,7 @@ public class ApiServerRepository implements IServerRepository {
 
     @Override
     public List<Server> getServer() {
-        //TODO("Pull from Cache")
-        return null;
+        return serverCache.getElements();
     }
 
     @Override
@@ -44,6 +47,18 @@ public class ApiServerRepository implements IServerRepository {
 
     @Override
     public void updateLocalServer(Server updatedServer) {
-        //TODO("Update cached server")
+        //Elements are immutable
+        serverCache.removeElementByKey(updatedServer.getId());
+        serverCache.cacheElement(updatedServer);
+    }
+
+    @Override
+    public ApiRequest<Void> deleteServer(String id) {
+        return requestFactory.createRequest(RequestRoute.SERVER_DELETE, id, null);
+    }
+
+    @Override
+    public void removeServerFromCache(long id) {
+        serverCache.removeElementByKey(id);
     }
 }

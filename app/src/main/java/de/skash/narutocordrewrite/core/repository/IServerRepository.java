@@ -14,4 +14,7 @@ public interface IServerRepository {
 
     ApiRequest<Server> updateServer(Server updatedServer);
     void updateLocalServer(Server updatedServer);
+
+    ApiRequest<Void> deleteServer(String id);
+    void removeServerFromCache(long id);
 }

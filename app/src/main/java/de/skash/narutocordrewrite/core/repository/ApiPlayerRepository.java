@@ -4,16 +4,21 @@ import de.skash.narutocordrewrite.core.api.ApiRequest;
 import de.skash.narutocordrewrite.core.api.RequestFactory;
 import de.skash.narutocordrewrite.core.api.model.Player;
 import de.skash.narutocordrewrite.core.api.util.RequestRoute;
+import de.skash.narutocordrewrite.core.cache.PlayerCache;
 
 import java.util.List;
 
 public class ApiPlayerRepository implements IPlayerRepository {
     private final RequestFactory requestFactory;
-    //TODO("Player Cache")
+    private final PlayerCache playerCache;
 
 
-    public ApiPlayerRepository(RequestFactory requestFactory) {
+    public ApiPlayerRepository(
+            RequestFactory requestFactory,
+            PlayerCache playerCache
+    ) {
         this.requestFactory = requestFactory;
+        this.playerCache = playerCache;
     }
 
     @Override
@@ -28,8 +33,7 @@ public class ApiPlayerRepository implements IPlayerRepository {
 
     @Override
     public List<Player> getPlayer() {
-        //TODO: Pull from cache
-        return null;
+        return playerCache.getElements();
     }
 
     @Override
@@ -39,22 +43,22 @@ public class ApiPlayerRepository implements IPlayerRepository {
 
     @Override
     public Player getPlayerById(long playerId) {
-        //TODO: Pull from cache
-        return null;
+        return playerCache.getElementByKey(playerId);
     }
 
     @Override
     public ApiRequest<Player> updatePlayer(Player player) {
-        return requestFactory.createRequest(RequestRoute.PLAYER_UPDATE, "player.getId()", requestFactory.mapToJsonBody(player));
+        return requestFactory.createRequest(RequestRoute.PLAYER_UPDATE, player.getIdAsString(), requestFactory.mapToJsonBody(player));
     }
+
 
     @Override
     public void removePlayerFromCache(long playerId) {
-        //TODO: Remove from cache
+        playerCache.removeElementByKey(playerId);
     }
 
     @Override
-    public ApiRequest<Void> deletePlayer(long playerId) {
+    public ApiRequest<Void> deletePlayer(String playerId) {
         return requestFactory.createRequest(RequestRoute.PLAYER_DELETE, String.valueOf(playerId), null);
     }
 }
