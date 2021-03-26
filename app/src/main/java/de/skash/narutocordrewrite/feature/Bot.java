@@ -3,6 +3,11 @@
  */
 package de.skash.narutocordrewrite.feature;
 
+import de.skash.narutocordrewrite.core.api.RequestFactory;
+import de.skash.narutocordrewrite.core.repository.ApiPlayerRepository;
+import de.skash.narutocordrewrite.core.repository.ApiServerRepository;
+import de.skash.narutocordrewrite.core.repository.IPlayerRepository;
+import de.skash.narutocordrewrite.core.repository.IServerRepository;
 import net.dv8tion.jda.api.GatewayEncoding;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -16,6 +21,11 @@ import javax.security.auth.login.LoginException;
 
 public class Bot {
     private static final Logger LOG = LoggerFactory.getLogger(Bot.class);
+
+    private final RequestFactory requestFactory = new RequestFactory();
+
+    private final IServerRepository serverRepository = new ApiServerRepository(requestFactory);
+    private final IPlayerRepository playerRepository = new ApiPlayerRepository(requestFactory);
 
     private Bot() {
         try {
