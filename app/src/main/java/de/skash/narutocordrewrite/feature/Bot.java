@@ -7,6 +7,7 @@ import de.skash.narutocordrewrite.core.api.RequestFactory;
 import de.skash.narutocordrewrite.core.cache.CommandCache;
 import de.skash.narutocordrewrite.core.cache.PlayerCache;
 import de.skash.narutocordrewrite.core.cache.ServerCache;
+import de.skash.narutocordrewrite.core.command.CommandHandler;
 import de.skash.narutocordrewrite.core.repository.ApiPlayerRepository;
 import de.skash.narutocordrewrite.core.repository.ApiServerRepository;
 import de.skash.narutocordrewrite.core.repository.IPlayerRepository;
@@ -33,6 +34,8 @@ public class Bot {
 
     private final IServerRepository serverRepository = new ApiServerRepository(requestFactory, serverCache);
     private final IPlayerRepository playerRepository = new ApiPlayerRepository(requestFactory, playerCache);
+
+    private final CommandHandler commandHandler = new CommandHandler(commandCache, playerCache, playerRepository);
 
     private Bot() {
         try {
