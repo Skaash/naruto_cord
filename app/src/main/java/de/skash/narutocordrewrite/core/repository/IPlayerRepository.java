@@ -20,5 +20,5 @@ public interface IPlayerRepository {
 
     void removePlayerFromCache(long playerId);
 
-    ApiRequest<Void> deletePlayer(long playerId);
+    ApiRequest<Void> deletePlayer(String playerId);
 }

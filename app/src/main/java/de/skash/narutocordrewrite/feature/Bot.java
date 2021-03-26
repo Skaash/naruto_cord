@@ -4,6 +4,9 @@
 package de.skash.narutocordrewrite.feature;
 
 import de.skash.narutocordrewrite.core.api.RequestFactory;
+import de.skash.narutocordrewrite.core.cache.CommandCache;
+import de.skash.narutocordrewrite.core.cache.PlayerCache;
+import de.skash.narutocordrewrite.core.cache.ServerCache;
 import de.skash.narutocordrewrite.core.repository.ApiPlayerRepository;
 import de.skash.narutocordrewrite.core.repository.ApiServerRepository;
 import de.skash.narutocordrewrite.core.repository.IPlayerRepository;
@@ -24,8 +27,12 @@ public class Bot {
 
     private final RequestFactory requestFactory = new RequestFactory();
 
-    private final IServerRepository serverRepository = new ApiServerRepository(requestFactory);
-    private final IPlayerRepository playerRepository = new ApiPlayerRepository(requestFactory);
+    private final CommandCache commandCache = new CommandCache();
+    private final PlayerCache playerCache = new PlayerCache();
+    private final ServerCache serverCache = new ServerCache();
+
+    private final IServerRepository serverRepository = new ApiServerRepository(requestFactory, serverCache);
+    private final IPlayerRepository playerRepository = new ApiPlayerRepository(requestFactory, playerCache);
 
     private Bot() {
         try {
